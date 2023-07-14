@@ -1,0 +1,12 @@
+- name : Deploy Pods on Docker Container
+  hosts : kubernetes
+  tasks : 
+  - name: Remove Existing Container
+    command: "kubectl delete deployment {{ Bankapp }}"
+    ignore_errors: true
+
+  - name: Performing Deployment of {{ susha15/bankingapp:swagger }}
+    command: "kubectl create deployment {{ Bankapp }} --image=docker.io/{{ susha15/bankingapp:swagger}} --port={{ 8989 }} "
+
+  - name: Get Container List
+    command: "kubectl get pods -o wide"
